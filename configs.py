@@ -103,11 +103,9 @@ def get_eval_configs():
     return parser.parse_args()
 
 config_oods = {
-    'experimental': {
-        'cifar10': 'CIFAR-10', 'cifar100': 'CIFAR-100',
-        'imnet_cropped_mod': 'TINc', 'imnet_resized': 'TINr',
-        'lsun_cropped_mod': 'LSUNc', 'lsun_resized': 'LSUNr',
-        'isun': 'iSUN', 'svhn': 'SVHN', 'food101': 'Food-101',
-        'gaus_noise': 'Gaus. noise', 'unif_noise': 'Unif. noise',
-    },
+    'cifar10': 'CIFAR-10', 'cifar100': 'CIFAR-100',
+    'imnet_cropped_mod': 'TINc', 'imnet_resized': 'TINr',
+    'lsun_cropped_mod': 'LSUNc', 'lsun_resized': 'LSUNr',
+    'isun': 'iSUN', 'svhn': 'SVHN', 'food101': 'Food-101',
+    'gaus_noise': 'Gaus. noise', 'unif_noise': 'Unif. noise',
 }

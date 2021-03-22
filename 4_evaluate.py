@@ -139,7 +139,6 @@ if __name__ == '__main__':
     logger.info(args)
     com_name = socket.gethostname()
     logger.info("Running on: {}".format(com_name))
-    exp_type = 'experimental'
     collections = {}
     to_dict = lambda acc, lgs, sms, ent: {'acc': acc, 'lgs': lgs, 'sms': sms, 'ent': ent}
 
@@ -185,8 +184,9 @@ if __name__ == '__main__':
         torchvision.transforms.Normalize(mean, std)
     ])
 
-    ood_names = config_oods[exp_type]
-    dataset_path = os.path.join(project_path, 'data', 'datasets', exp_type, 'oods')
+    ood_names = config_oods
+    dataset_path = os.path.join(project_path, 'data', 'datasets', 'oods')
+    results = []
     with open(os.path.join(eval_path, 'eval_ood'), 'w') as f:
         f.write('ood,auc_max_sms,auc_ent,tnr_max_sms,tnr_ent,aupr_max_sms,aupr_ent\n')
         for ood_dset_name in ood_names.keys():
@@ -211,6 +211,19 @@ if __name__ == '__main__':
             plt.xlim(0, 1)
             plt.savefig(os.path.join(fig_path, 'eval_ood_{}'.format(ood_dset_name)), format="jpeg", bbox_inches='tight')
             f.write(msg)
+            ood_name_ = ' ' * int(np.ceil((11 - len(ood_names[ood_dset_name]))/2)) + ood_names[ood_dset_name] + ' ' * int(np.floor((11 - len(ood_names[ood_dset_name]))/2))
+            if ood_dset_name != dset_name:
+                results.append((ood_name_, auc_ent, tnr_ent))
+
+    print('')
+    print('')
+    print('-------------------------------------')
+    print('     OOD     |   AUROC   | TNR@TPR95 ')
+    print('-------------------------------------')
+    for res in results:
+        print(' {} |   {:.1f}%   |   {:.1f}%   '.format(*res))
+    print('-------------------------------------')
+    print('')
 
     end_time = time.time()
     duration = end_time - start_time

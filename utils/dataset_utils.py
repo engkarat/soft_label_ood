@@ -136,7 +136,7 @@ def get_dataset_and_transform(
             transforms.Normalize(mean=mean, std=std)
         ])
 
-        im_folder = 'data/datasets/realistic_images/food101_small/train/'
+        im_folder = 'data/datasets/food101_small/train/'
         transform_ = tr_transform if not use_test_transform else te_transform
         if augment:
             tr_dset = SoftTargetDatasetFolder(
@@ -147,7 +147,7 @@ def get_dataset_and_transform(
         else:
             tr_dset = torchvision.datasets.ImageFolder(im_folder, transform=transform_)
 
-        im_folder = 'data/datasets/realistic_images/food101_small/test/'
+        im_folder = 'data/datasets/food101_small/test/'
         if apply_aug_to_test:
             te_dset = SoftTargetDatasetFolder(
                 im_folder, transform=te_transform, acc_list_path=acc_list_path,
@@ -157,7 +157,7 @@ def get_dataset_and_transform(
         else:
             te_dset = torchvision.datasets.ImageFolder(im_folder, transform=te_transform)
 
-        im_folder = 'data/datasets/realistic_images/food101_small/val/'
+        im_folder = 'data/datasets/food101_small/val/'
         if apply_aug_to_test:
             va_dset = SoftTargetDatasetFolder(
                 im_folder, transform=te_transform, acc_list_path=acc_list_path,
